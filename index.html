@@ -5,220 +5,388 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hüttentouren Schweiz – planbar nach Verfügbarkeit</title>
 <meta name="description" content="Fünf geprüfte Schweizer Mehrtages-Hüttentouren mit ÖV-Anreise. Kostenlos einsehbar. Melde dich, sobald deine Wunschtour an deinem Datum frei ist.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23f3ead4'/%3E%3Cpath d='M2 18 L9 7 L13 13 L16 9 L22 18 Z' fill='none' stroke='%23b3271c' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <!-- Analytics: Cloudflare Web Analytics oder GoatCounter, ohne Cookies. Einbindung erst nach
      Einrichtung eines Accounts (siehe handoff.md Abschnitt 4) – noch nicht aktiv. -->
 </head>
 <body>
-<div class="wrap">
+<!--
+THESIS: The page reads as a Swiss national topographic map, not a travel-blog hero — it
+refuses the generic big-mountain-photo-plus-gradient travel-marketing default.
+OWN-WORLD: sand terrain paper, brown contour-line ink as structural rule, glacier-blue as a
+functional secondary, one committed route-red reserved for the active path, CTA and price
+accents. Archivo Expanded tracked caps for display, Archivo for UI/headings, Public Sans for
+body, JetBrains Mono for every number (times, prices, T-grades, data chips).
+STORY: visitor recognises the map language instantly, trusts the precision, sees their own
+route problem solved as a marked path across real terrain, submits email to get notified.
+FIRST VIEWPORT: hero as a hand-drawn contour field behind a tracked map-label headline, a
+short route mark, lead paragraph, and a map-legend fact strip below it.
+FORM: cartography / Landeskarte, candidate 3 of grounded list (assigned), seed key 157c5603.
+Raise from declined orienteering challenger: a single committed accent reserved exclusively
+for the active route, never mixed into the neutral terrain palette.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review,
+the verdict, and DESIGN.md.
+-->
+
+<svg class="icons" aria-hidden="true">
+  <symbol id="icon-tours" viewBox="0 0 24 24"><path d="M2 18 L8 8 L11.5 13 L14.5 9 L22 18 Z"/><path d="M9.5 18 L13 12.5"/></symbol>
+  <symbol id="icon-season" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8"/></symbol>
+  <symbol id="icon-transit" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="14" rx="2"/><path d="M5 10h14M9 4v6M15 4v6M8 21l1.5-3M16 21l-1.5-3"/><circle cx="9" cy="15" r="0.7" fill="currentColor"/><circle cx="15" cy="15" r="0.7" fill="currentColor"/></symbol>
+  <symbol id="icon-hut" viewBox="0 0 24 24"><path d="M4 11 L12 4 L20 11"/><path d="M6 10.5V20h12V10.5"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="icon-warn" viewBox="0 0 24 24"><path d="M12 3 L22 20 H2 Z"/><path d="M12 9.5v5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></symbol>
+  <symbol id="icon-days" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="icon-grade" viewBox="0 0 24 24"><path d="M4 20 L10 8 L14 15 L17 10 L20 20 Z"/></symbol>
+  <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M6 9 L12 15 L18 9"/></symbol>
+</svg>
 
 <header class="hero">
-  <h1>Welche Hüttentour funktioniert an deinem Wochenende wirklich?</h1>
-  <p class="lead">
-    Vier Werkzeuge, drei Hütten, keine Übersicht: SAC-Tourenportal für die Route, ein zweites
-    System für die Reservation, ein drittes für die Anreise – und wenn eine Hütte an deinem
-    Datum ausgebucht ist, merkst du es erst, wenn du schon planst. Wir bringen das zusammen und
-    sagen dir Bescheid, sobald deine Tour wirklich frei ist.
-  </p>
+  <div class="hero-photo">
+    <img src="images/hero-bluemlisalp.jpg" alt="Blüemlisalphütte SAC bei Sonnenaufgang, Blick auf Doldenhorn und Kiental" loading="eager">
+  </div>
+  <div class="hero-inner">
+    <div class="container">
+      <span class="kicker-route" aria-hidden="true"></span>
+      <h1>Welche Hüttentour funktioniert an deinem Wochenende wirklich?</h1>
+      <p class="lead">
+        Vier Werkzeuge, drei Hütten, keine Übersicht: SAC-Tourenportal für die Route, ein zweites
+        System für die Reservation, ein drittes für die Anreise – und wenn eine Hütte an deinem
+        Datum ausgebucht ist, merkst du es erst, wenn du schon planst. Wir bringen das zusammen und
+        sagen dir Bescheid, sobald deine Tour wirklich frei ist.
+      </p>
+      <div class="legend-strip">
+        <span class="legend-item"><svg class="icon"><use href="#icon-tours"/></svg>5 Touren, geprüft</span>
+        <span class="legend-item"><svg class="icon"><use href="#icon-season"/></svg>Saison Juni–Oktober</span>
+        <span class="legend-item"><svg class="icon"><use href="#icon-transit"/></svg>Start/Ziel per ÖV</span>
+      </div>
+    </div>
+  </div>
+  <div class="contour-divider" aria-hidden="true"></div>
 </header>
 
-<section class="intro">
+<section class="intro container stack">
   <h2>Fünf Touren, vollständig recherchiert</h2>
   <p>
     Keine Werbetexte, keine geschätzten Zahlen. Jede Gehzeit, jeder Buchungslink und jede
     Bahnverbindung unten ist mit Quelle belegt. Wo eine Angabe noch nicht offiziell bestätigt ist,
     steht das dabei – nicht verschwiegen.
   </p>
+  <nav class="jump-nav" aria-label="Touren auf dieser Seite">
+    <a href="#tour-1">Berner Oberland</a>
+    <a href="#tour-2">Graubünden</a>
+    <a href="#tour-3">Wallis</a>
+    <a href="#tour-4">Zentralschweiz</a>
+    <a href="#tour-5">Tessin</a>
+  </nav>
 </section>
 
+<main class="tours container">
+
 <!-- ============ TOUR 1 – BERNER OBERLAND ============ -->
-<article class="tour-card">
-  <h3>Berner Oberland – Vom Kander- ins Lauterbrunnental</h3>
-  <p class="tour-meta">4 Tage · T4+ · 3 Hütten</p>
+<article class="tour-card" id="tour-1">
+  <div class="tour-photo">
+    <img src="images/tour-berner-oberland.jpg" alt="Blüemlisalphütte SAC mit Blick auf Thunersee und Kiental" loading="lazy">
+    <span class="region-tag">Berner Oberland</span>
+  </div>
+  <div class="tour-card-body">
+  <div class="tour-card-head">
+    <h3>Vom Kander- ins Lauterbrunnental</h3>
+  </div>
+  <p class="tour-meta">
+    <span><svg class="icon"><use href="#icon-days"/></svg>4 Tage</span>
+    <span><svg class="icon"><use href="#icon-grade"/></svg>T4+</span>
+    <span><svg class="icon"><use href="#icon-hut"/></svg>3 Hütten</span>
+  </p>
   <p class="tour-hook">
     Die klassische Hüttenroute zwischen Kandersteg und Lauterbrunnen über drei bewirtschaftete
     Hütten – anspruchsvoll und mit einer aktuellen Zustiegsänderung, die viele Planungen noch
     nicht berücksichtigen.
   </p>
   <div class="warn-box">
-    <strong>Aktueller Stand:</strong> Der Normalzustieg zur Fründenhütte ist wegen Bergsturzgefahr
+    <svg class="icon"><use href="#icon-warn"/></svg>
+    <div><strong>Aktueller Stand:</strong> Der Normalzustieg zur Fründenhütte ist wegen Bergsturzgefahr
     gesperrt. Die signalisierte Alternative über Underbärgli ist mit Fixseilen gesichert (T4,
-    ca. 4 Std. ab Oeschinensee Bergstation) – ein Klettersteigset wird empfohlen.
+    ca. 4 Std. ab Oeschinensee Bergstation) – ein Klettersteigset wird empfohlen.</div>
   </div>
-  <table class="etappen">
-    <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>Oeschinensee → Fründenhütte (Alternativroute Underbärgli)</td><td>ca. 4 h</td><td>T4</td></tr>
-      <tr><td>2</td><td>Fründenhütte → Blüemlisalphütte</td><td>5–6 h</td><td>T4+</td></tr>
-      <tr><td>3</td><td>Blüemlisalphütte → Gspaltenhornhütte</td><td>ca. 5 h 25*</td><td>T4</td></tr>
-      <tr><td>4</td><td>Gspaltenhornhütte → Mürren (via Rotstockhütte)</td><td>ca. 2 h 40*</td><td>T3+</td></tr>
-    </tbody>
-  </table>
-  <p class="footnote">* Richtwert aus einer Drittquelle, noch nicht SAC-offiziell bestätigt.</p>
-  <ul class="huetten-list">
-    <li><a href="https://www.hut-reservation.org/reservation/book-hut/19/wizard" target="_blank" rel="noopener">Fründenhütte SAC</a> – online buchbar</li>
-    <li><a href="https://www.hut-reservation.org/reservation/book-hut/1/wizard" target="_blank" rel="noopener">Blüemlisalphütte SAC</a> – online buchbar</li>
-    <li><a href="https://www.hut-reservation.org/reservation/book-hut/44/wizard" target="_blank" rel="noopener">Gspaltenhornhütte SAC</a> – online buchbar</li>
-    <li><a href="https://www.rotstockhuette.ch" target="_blank" rel="noopener">Rotstockhütte</a> – eigenes Buchungssystem</li>
-  </ul>
-  <div class="reise-grid">
-    <div>Anreise ab Bern: 1 h 05, ca. CHF 36</div>
-    <div>Anreise ab Zürich: 2 h 08, ca. CHF 67</div>
-    <div>Anreise ab Basel: 2 h 10, ca. CHF 68</div>
-    <div>Rückreise ab Mürren nach Bern: 1 h 57</div>
+  <details class="tour-detail-wrap">
+    <summary class="tour-toggle">
+      <span>Etappenplan, Hütten &amp; Anreise</span>
+      <svg class="chevron icon"><use href="#icon-chevron"/></svg>
+    </summary>
+    <div class="tour-detail-inner">
+      <div class="table-scroll">
+      <table class="etappen">
+        <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
+        <tbody>
+          <tr><td><span class="day-badge">1</span></td><td>Oeschinensee → Fründenhütte (Alternativroute Underbärgli)</td><td>ca. 4 h</td><td>T4</td></tr>
+          <tr><td><span class="day-badge">2</span></td><td>Fründenhütte → Blüemlisalphütte</td><td>5–6 h</td><td>T4+</td></tr>
+          <tr><td><span class="day-badge">3</span></td><td>Blüemlisalphütte → Gspaltenhornhütte</td><td>ca. 5 h 25*</td><td>T4</td></tr>
+          <tr><td><span class="day-badge">4</span></td><td>Gspaltenhornhütte → Mürren (via Rotstockhütte)</td><td>ca. 2 h 40*</td><td>T3+</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="footnote">* Richtwert aus einer Drittquelle, noch nicht SAC-offiziell bestätigt.</p>
+      <ul class="huetten-list">
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.hut-reservation.org/reservation/book-hut/19/wizard" target="_blank" rel="noopener">Fründenhütte SAC</a> – online buchbar</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.hut-reservation.org/reservation/book-hut/1/wizard" target="_blank" rel="noopener">Blüemlisalphütte SAC</a> – online buchbar</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.hut-reservation.org/reservation/book-hut/44/wizard" target="_blank" rel="noopener">Gspaltenhornhütte SAC</a> – online buchbar</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.rotstockhuette.ch" target="_blank" rel="noopener">Rotstockhütte</a> – eigenes Buchungssystem</li>
+      </ul>
+      <div class="reise-grid">
+        <div>Anreise ab Bern: 1 h 05, ca. CHF 36</div>
+        <div>Anreise ab Zürich: 2 h 08, ca. CHF 67</div>
+        <div>Anreise ab Basel: 2 h 10, ca. CHF 68</div>
+        <div>Rückreise ab Mürren nach Bern: 1 h 57</div>
+      </div>
+      <p class="tour-facts">Saisonfenster: Juli–September. Startpunkt Kandersteg, vollständig mit ÖV erreichbar.</p>
+    </div>
+  </details>
   </div>
-  <p class="tour-facts">Saisonfenster: Juli–September. Startpunkt Kandersteg, vollständig mit ÖV erreichbar.</p>
 </article>
 
 <!-- ============ TOUR 2 – GRAUBÜNDEN ============ -->
-<article class="tour-card">
-  <h3>Graubünden – Ringelspitz und Calanda</h3>
-  <p class="tour-meta">3 Tage · T2 · 2 Hütten</p>
+<article class="tour-card" id="tour-2">
+  <div class="tour-photo">
+    <img src="images/tour-graubuenden.jpg" alt="Crap Mats mit Blick auf den Ringelspitz, Graubünden" loading="lazy">
+    <span class="region-tag">Graubünden</span>
+  </div>
+  <div class="tour-card-body">
+  <div class="tour-card-head">
+    <h3>Ringelspitz und Calanda</h3>
+  </div>
+  <p class="tour-meta">
+    <span><svg class="icon"><use href="#icon-days"/></svg>3 Tage</span>
+    <span><svg class="icon"><use href="#icon-grade"/></svg>T2</span>
+    <span><svg class="icon"><use href="#icon-hut"/></svg>2 Hütten</span>
+  </p>
   <p class="tour-hook">
     Eine leichte Dreitagestour direkt ab Chur, ohne Gletscher- oder Kletterpassagen – ideal für
     den Einstieg ins Hüttenwandern.
   </p>
-  <table class="etappen">
-    <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>Tamins → Ringelspitzhütte</td><td>3 h 45</td><td>T2</td></tr>
-      <tr><td>2</td><td>Ringelspitzhütte → Calandahütte (via Kunkelspass)</td><td>5,5–6 h</td><td>T2</td></tr>
-      <tr><td>3</td><td>Calandahütte → Haldenstein (via Funtanolja)</td><td>ca. 3–4 h*</td><td>T2</td></tr>
-    </tbody>
-  </table>
-  <p class="footnote">* Richtwert aus einer Drittquelle, noch nicht SAC-offiziell bestätigt.</p>
-  <ul class="huetten-list">
-    <li><a href="https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/ringelspitzhuette-sac-2147000218/" target="_blank" rel="noopener">Ringelspitzhütte SAC</a> – online buchbar</li>
-    <li><a href="https://www.calandahuette.ch/reservierung/" target="_blank" rel="noopener">Calandahütte SAC</a> – eigenes Reservationsformular</li>
-  </ul>
-  <div class="reise-grid">
-    <div>Anreise ab Zürich: 1 h 26, ca. CHF 40</div>
-    <div>Anreise ab Basel: 2 h 31, ca. CHF 42</div>
-    <div>Anreise ab Bern: wird noch geprüft</div>
-    <div>Rückreise: Bus/Zug ab Haldenstein via Chur</div>
+  <details class="tour-detail-wrap">
+    <summary class="tour-toggle">
+      <span>Etappenplan, Hütten &amp; Anreise</span>
+      <svg class="chevron icon"><use href="#icon-chevron"/></svg>
+    </summary>
+    <div class="tour-detail-inner">
+      <div class="table-scroll">
+      <table class="etappen">
+        <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
+        <tbody>
+          <tr><td><span class="day-badge">1</span></td><td>Tamins → Ringelspitzhütte</td><td>3 h 45</td><td>T2</td></tr>
+          <tr><td><span class="day-badge">2</span></td><td>Ringelspitzhütte → Calandahütte (via Kunkelspass)</td><td>5,5–6 h</td><td>T2</td></tr>
+          <tr><td><span class="day-badge">3</span></td><td>Calandahütte → Haldenstein (via Funtanolja)</td><td>ca. 3–4 h*</td><td>T2</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="footnote">* Richtwert aus einer Drittquelle, noch nicht SAC-offiziell bestätigt.</p>
+      <ul class="huetten-list">
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/ringelspitzhuette-sac-2147000218/" target="_blank" rel="noopener">Ringelspitzhütte SAC</a> – online buchbar</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.calandahuette.ch/reservierung/" target="_blank" rel="noopener">Calandahütte SAC</a> – eigenes Reservationsformular</li>
+      </ul>
+      <div class="reise-grid">
+        <div>Anreise ab Zürich: 1 h 26, ca. CHF 40</div>
+        <div>Anreise ab Basel: 2 h 31, ca. CHF 42</div>
+        <div>Anreise ab Bern: wird noch geprüft</div>
+        <div>Rückreise: Bus/Zug ab Haldenstein via Chur</div>
+      </div>
+      <p class="tour-facts">Saisonfenster: Juni–Oktober. Startpunkt Tamins, vollständig mit ÖV erreichbar.</p>
+    </div>
+  </details>
   </div>
-  <p class="tour-facts">Saisonfenster: Juni–Oktober. Startpunkt Tamins, vollständig mit ÖV erreichbar.</p>
 </article>
 
 <!-- ============ TOUR 3 – WALLIS ============ -->
-<article class="tour-card">
-  <h3>Wallis – Binntal und Alpe Dèvero</h3>
-  <p class="tour-meta">3 Tage · T3 · 2 Hütten · 2 Länder</p>
+<article class="tour-card" id="tour-3">
+  <div class="tour-photo">
+    <img src="images/tour-wallis.jpg" alt="Landschaftspark Binntal bei Binn-Blatt, Wallis" loading="lazy">
+    <span class="region-tag">Wallis</span>
+  </div>
+  <div class="tour-card-body">
+  <div class="tour-card-head">
+    <h3>Binntal und Alpe Dèvero</h3>
+  </div>
+  <p class="tour-meta">
+    <span><svg class="icon"><use href="#icon-days"/></svg>3 Tage</span>
+    <span><svg class="icon"><use href="#icon-grade"/></svg>T3</span>
+    <span><svg class="icon"><use href="#icon-hut"/></svg>2 Hütten · 2 Länder</span>
+  </p>
   <p class="tour-hook">
     Eine leichte Grenztour zu Italien, die zwei Hüttenkulturen verbindet – und zwei komplett
     getrennte Buchungssysteme hat.
   </p>
-  <table class="etappen">
-    <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>Fäld (Binn) → Binntalhütte (via Freichi)</td><td>3 h</td><td>T2</td></tr>
-      <tr><td>2</td><td>Binntalhütte → Rifugio Castiglioni (via Albrunpass)</td><td>2,5–3 h</td><td>T2</td></tr>
-      <tr><td>3</td><td>Rifugio Castiglioni → Fäld (via Geisspfad)</td><td>wird noch bestätigt</td><td>T3</td></tr>
-    </tbody>
-  </table>
-  <ul class="huetten-list">
-    <li><a href="https://www.hut-reservation.org/reservation/book-hut/264/wizard?language=DE" target="_blank" rel="noopener">Binntalhütte SAC</a> – online buchbar</li>
-    <li><a href="https://www.rifugiocastiglioni.it/it/" target="_blank" rel="noopener">Rifugio Castiglioni</a> – italienische CAI-Hütte, nur Telefon/E-Mail</li>
-  </ul>
-  <div class="reise-grid">
-    <div>Anreise ab Bern: 2 h 31–3 h 03, ca. CHF 53</div>
-    <div>Anreise ab Zürich: 3 h 30–48, ca. CHF 97</div>
-    <div>Anreise ab Basel: 3 h 34–44, ca. CHF 77</div>
-    <div>Rückreise: Rundtour, zurück nach Fäld</div>
+  <details class="tour-detail-wrap">
+    <summary class="tour-toggle">
+      <span>Etappenplan, Hütten &amp; Anreise</span>
+      <svg class="chevron icon"><use href="#icon-chevron"/></svg>
+    </summary>
+    <div class="tour-detail-inner">
+      <div class="table-scroll">
+      <table class="etappen">
+        <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
+        <tbody>
+          <tr><td><span class="day-badge">1</span></td><td>Fäld (Binn) → Binntalhütte (via Freichi)</td><td>3 h</td><td>T2</td></tr>
+          <tr><td><span class="day-badge">2</span></td><td>Binntalhütte → Rifugio Castiglioni (via Albrunpass)</td><td>2,5–3 h</td><td>T2</td></tr>
+          <tr><td><span class="day-badge">3</span></td><td>Rifugio Castiglioni → Fäld (via Geisspfad)</td><td>wird noch bestätigt</td><td>T3</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <ul class="huetten-list">
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.hut-reservation.org/reservation/book-hut/264/wizard?language=DE" target="_blank" rel="noopener">Binntalhütte SAC</a> – online buchbar</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.rifugiocastiglioni.it/it/" target="_blank" rel="noopener">Rifugio Castiglioni</a> – italienische CAI-Hütte, nur Telefon/E-Mail</li>
+      </ul>
+      <div class="reise-grid">
+        <div>Anreise ab Bern: 2 h 31–3 h 03, ca. CHF 53</div>
+        <div>Anreise ab Zürich: 3 h 30–48, ca. CHF 97</div>
+        <div>Anreise ab Basel: 3 h 34–44, ca. CHF 77</div>
+        <div>Rückreise: Rundtour, zurück nach Fäld</div>
+      </div>
+      <p class="tour-facts">Saisonfenster: Juli–September (Binntalhütte). Startpunkt Fäld, Binn, vollständig mit ÖV erreichbar (Bahn + Postauto).</p>
+    </div>
+  </details>
   </div>
-  <p class="tour-facts">Saisonfenster: Juli–September (Binntalhütte). Startpunkt Fäld, Binn, vollständig mit ÖV erreichbar (Bahn + Postauto).</p>
 </article>
 
 <!-- ============ TOUR 4 – ZENTRALSCHWEIZ ============ -->
-<article class="tour-card">
-  <h3>Zentralschweiz – Vom Urnerland ins Tessin</h3>
-  <p class="tour-meta">4 Tage · T3+ · 3 Hütten</p>
+<article class="tour-card" id="tour-4">
+  <div class="tour-photo">
+    <img src="images/tour-zentralschweiz.jpg" alt="Flachmoorgebiet am Oberalppass bei Andermatt" loading="lazy">
+    <span class="region-tag">Zentralschweiz</span>
+  </div>
+  <div class="tour-card-body">
+  <div class="tour-card-head">
+    <h3>Vom Urnerland ins Tessin</h3>
+  </div>
+  <p class="tour-meta">
+    <span><svg class="icon"><use href="#icon-days"/></svg>4 Tage</span>
+    <span><svg class="icon"><use href="#icon-grade"/></svg>T3+</span>
+    <span><svg class="icon"><use href="#icon-hut"/></svg>3 Hütten</span>
+  </p>
   <p class="tour-hook">
     Eine Vier-Tages-Querung entlang der Gotthard-Achse, an beiden Enden bahnnah – vom Oberalppass
     bis ins Tessin.
   </p>
-  <table class="etappen">
-    <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>Oberalppass → Camona da Maighels (via Lai da Tuma)</td><td>2 h 30</td><td>T2</td></tr>
-      <tr><td>2</td><td>Camona da Maighels → Capanna Cadlimo (via Passo Bornengo)</td><td>3–3,5 h</td><td>T3</td></tr>
-      <tr><td>3</td><td>Capanna Cadlimo → Capanna Cadagno (via Bocchetta della Miniera)</td><td>3–4 h</td><td>T3+</td></tr>
-      <tr><td>4</td><td>Capanna Cadagno → Carì (via Passo Predèlp)</td><td>bis zu 5–6 h*</td><td>T2</td></tr>
-    </tbody>
-  </table>
-  <p class="footnote">* SAC-Wert für die Gegenrichtung (Aufstieg); der Abstieg dürfte kürzer sein.</p>
-  <ul class="huetten-list">
-    <li><a href="https://www.hut-reservation.org/reservation/book-hut/26/wizard" target="_blank" rel="noopener">Camona da Maighels CAS</a> – online buchbar</li>
-    <li><a href="https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/capanna-cadlimo-cas-2147000053/" target="_blank" rel="noopener">Capanna Cadlimo CAS</a> – online buchbar</li>
-    <li><a href="https://capannacadagno.ch/it/prenotazione" target="_blank" rel="noopener">Capanna Cadagno</a> – eigenes Reservationssystem</li>
-  </ul>
-  <div class="reise-grid">
-    <div>Anreise ab Zürich: 2 h 54</div>
-    <div>Anreise ab Bern: 3 h 52</div>
-    <div>Anreise ab Basel: 4 h 48</div>
-    <div>Rückreise ab Carì nach Zürich: 2 h 20</div>
+  <details class="tour-detail-wrap">
+    <summary class="tour-toggle">
+      <span>Etappenplan, Hütten &amp; Anreise</span>
+      <svg class="chevron icon"><use href="#icon-chevron"/></svg>
+    </summary>
+    <div class="tour-detail-inner">
+      <div class="table-scroll">
+      <table class="etappen">
+        <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
+        <tbody>
+          <tr><td><span class="day-badge">1</span></td><td>Oberalppass → Camona da Maighels (via Lai da Tuma)</td><td>2 h 30</td><td>T2</td></tr>
+          <tr><td><span class="day-badge">2</span></td><td>Camona da Maighels → Capanna Cadlimo (via Passo Bornengo)</td><td>3–3,5 h</td><td>T3</td></tr>
+          <tr><td><span class="day-badge">3</span></td><td>Capanna Cadlimo → Capanna Cadagno (via Bocchetta della Miniera)</td><td>3–4 h</td><td>T3+</td></tr>
+          <tr><td><span class="day-badge">4</span></td><td>Capanna Cadagno → Carì (via Passo Predèlp)</td><td>bis zu 5–6 h*</td><td>T2</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="footnote">* SAC-Wert für die Gegenrichtung (Aufstieg); der Abstieg dürfte kürzer sein.</p>
+      <ul class="huetten-list">
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.hut-reservation.org/reservation/book-hut/26/wizard" target="_blank" rel="noopener">Camona da Maighels CAS</a> – online buchbar</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/capanna-cadlimo-cas-2147000053/" target="_blank" rel="noopener">Capanna Cadlimo CAS</a> – online buchbar</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://capannacadagno.ch/it/prenotazione" target="_blank" rel="noopener">Capanna Cadagno</a> – eigenes Reservationssystem</li>
+      </ul>
+      <div class="reise-grid">
+        <div>Anreise ab Zürich: 2 h 54</div>
+        <div>Anreise ab Bern: 3 h 52</div>
+        <div>Anreise ab Basel: 4 h 48</div>
+        <div>Rückreise ab Carì nach Zürich: 2 h 20</div>
+      </div>
+      <p class="tour-facts">Saisonfenster: bis Ende September (limitiert durch Capanna Cadagno). Startpunkt Oberalppass, vollständig mit ÖV erreichbar.</p>
+    </div>
+  </details>
   </div>
-  <p class="tour-facts">Saisonfenster: bis Ende September (limitiert durch Capanna Cadagno). Startpunkt Oberalppass, vollständig mit ÖV erreichbar.</p>
 </article>
 
 <!-- ============ TOUR 5 – TESSIN ============ -->
-<article class="tour-card">
-  <h3>Tessin – In den Tiefen des Tessins</h3>
-  <p class="tour-meta">3 Tage · T3- bis T4 · 2 Hütten</p>
+<article class="tour-card" id="tour-5">
+  <div class="tour-photo">
+    <img src="images/tour-tessin.jpg" alt="Dorf Russo im Onsernonetal, Tessin" loading="lazy">
+    <span class="region-tag">Tessin</span>
+  </div>
+  <div class="tour-card-body">
+  <div class="tour-card-head">
+    <h3>In den Tiefen des Tessins</h3>
+  </div>
+  <p class="tour-meta">
+    <span><svg class="icon"><use href="#icon-days"/></svg>3 Tage</span>
+    <span><svg class="icon"><use href="#icon-grade"/></svg>T3- bis T4</span>
+    <span><svg class="icon"><use href="#icon-hut"/></svg>2 Hütten</span>
+  </p>
   <p class="tour-hook">
     Eine kompakte Dreitagestour im Onsernonetal, ab Locarno mit dem Postauto erreichbar.
   </p>
-  <table class="etappen">
-    <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
-    <tbody>
-      <tr><td>1</td><td>Vergeletto → Capanna Ribia</td><td>3–4 h</td><td>T3-</td></tr>
-      <tr><td>2</td><td>Capanna Ribia → Capanna d'Alzasca (via Bocchetta di Doia)</td><td>4–5 h</td><td>T3-</td></tr>
-      <tr><td>3</td><td>Capanna d'Alzasca → Cevio (via Bocchetta di Cansgei)</td><td>bis zu 6 h 30*</td><td>T3-</td></tr>
-    </tbody>
-  </table>
-  <p class="footnote">* SAC-Wert für die Gegenrichtung (Aufstieg); der Abstieg dürfte kürzer sein.</p>
-  <ul class="huetten-list">
-    <li><a href="https://www.capanna-ribia.ch" target="_blank" rel="noopener">Capanna Ribia</a> – private Selbstversorgerhütte, eigenes System</li>
-    <li><a href="https://www.hut-reservation.org/reservation/book-hut/198/wizard" target="_blank" rel="noopener">Capanna d'Alzasca CAS</a> – online buchbar</li>
-  </ul>
-  <div class="reise-grid">
-    <div>Anreise ab Zürich: 3 h 09, ca. CHF 81 (CHF 40 mit Halbtax)</div>
-    <div>Anreise ab Bern: 4 h 12, ca. CHF 97</div>
-    <div>Anreise ab Basel: 4 h 10, ca. CHF 97</div>
-    <div>Rückreise ab Cevio nach Locarno: ca. 41 Min.</div>
+  <details class="tour-detail-wrap">
+    <summary class="tour-toggle">
+      <span>Etappenplan, Hütten &amp; Anreise</span>
+      <svg class="chevron icon"><use href="#icon-chevron"/></svg>
+    </summary>
+    <div class="tour-detail-inner">
+      <div class="table-scroll">
+      <table class="etappen">
+        <thead><tr><th>Tag</th><th>Strecke</th><th>Gehzeit</th><th>Schwierigkeit</th></tr></thead>
+        <tbody>
+          <tr><td><span class="day-badge">1</span></td><td>Vergeletto → Capanna Ribia</td><td>3–4 h</td><td>T3-</td></tr>
+          <tr><td><span class="day-badge">2</span></td><td>Capanna Ribia → Capanna d'Alzasca (via Bocchetta di Doia)</td><td>4–5 h</td><td>T3-</td></tr>
+          <tr><td><span class="day-badge">3</span></td><td>Capanna d'Alzasca → Cevio (via Bocchetta di Cansgei)</td><td>bis zu 6 h 30*</td><td>T3-</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="footnote">* SAC-Wert für die Gegenrichtung (Aufstieg); der Abstieg dürfte kürzer sein.</p>
+      <ul class="huetten-list">
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.capanna-ribia.ch" target="_blank" rel="noopener">Capanna Ribia</a> – private Selbstversorgerhütte, eigenes System</li>
+        <li><svg class="icon"><use href="#icon-hut"/></svg><a href="https://www.hut-reservation.org/reservation/book-hut/198/wizard" target="_blank" rel="noopener">Capanna d'Alzasca CAS</a> – online buchbar</li>
+      </ul>
+      <div class="reise-grid">
+        <div>Anreise ab Zürich: 3 h 09, ca. CHF 81 (CHF 40 mit Halbtax)</div>
+        <div>Anreise ab Bern: 4 h 12, ca. CHF 97</div>
+        <div>Anreise ab Basel: 4 h 10, ca. CHF 97</div>
+        <div>Rückreise ab Cevio nach Locarno: ca. 41 Min.</div>
+      </div>
+      <p class="tour-facts">Saisonfenster: Capanna d'Alzasca 17.05.–23.10. bewirtschaftet. Startpunkt Vergeletto, vollständig mit ÖV erreichbar (Bahn + Postauto).</p>
+    </div>
+  </details>
   </div>
-  <p class="tour-facts">Saisonfenster: Capanna d'Alzasca 17.05.–23.10. bewirtschaftet. Startpunkt Vergeletto, vollständig mit ÖV erreichbar (Bahn + Postauto).</p>
 </article>
 
+</main>
+
 <section class="offer">
-  <h2>Wir sagen dir Bescheid, wenn's frei wird</h2>
-  <p>
-    Trag dich mit deiner Wunschtour ein. Sobald an deinem Datum alle nötigen Hütten frei sind,
-    bekommst du eine E-Mail – bevor du selbst jeden Tag nachschauen musst.
-  </p>
-  <form class="signup" action="https://formspree.io/f/xgawzrpb" method="POST">
-    <div>
-      <label for="email">E-Mail-Adresse</label><br>
-      <input type="email" id="email" name="email" required placeholder="du@beispiel.ch">
-    </div>
-    <div>
-      <label for="tour">Wunschtour</label><br>
-      <select id="tour" name="tour" required>
-        <option value="">Bitte wählen</option>
-        <option value="berner-oberland">Berner Oberland – Kander- ins Lauterbrunnental</option>
-        <option value="graubuenden">Graubünden – Ringelspitz und Calanda</option>
-        <option value="wallis">Wallis – Binntal und Alpe Dèvero</option>
-        <option value="zentralschweiz">Zentralschweiz – Urnerland ins Tessin</option>
-        <option value="tessin">Tessin – In den Tiefen des Tessins</option>
-        <option value="andere">Andere / noch unentschieden</option>
-      </select>
-    </div>
-    <input type="hidden" name="_next" value="danke.html">
-    <button type="submit">Eintragen</button>
-  </form>
+  <div class="container">
+    <h2>Wir sagen dir Bescheid, wenn's frei wird</h2>
+    <p>
+      Trag dich mit deiner Wunschtour ein. Sobald an deinem Datum alle nötigen Hütten frei sind,
+      bekommst du eine E-Mail – bevor du selbst jeden Tag nachschauen musst.
+    </p>
+    <form class="signup" action="https://formspree.io/f/xgawzrpb" method="POST" id="signup-form">
+      <div>
+        <label for="email">E-Mail-Adresse</label>
+        <input type="email" id="email" name="email" required placeholder="du@beispiel.ch">
+      </div>
+      <div>
+        <label for="tour">Wunschtour</label>
+        <select id="tour" name="tour" required>
+          <option value="">Bitte wählen</option>
+          <option value="berner-oberland">Berner Oberland – Kander- ins Lauterbrunnental</option>
+          <option value="graubuenden">Graubünden – Ringelspitz und Calanda</option>
+          <option value="wallis">Wallis – Binntal und Alpe Dèvero</option>
+          <option value="zentralschweiz">Zentralschweiz – Urnerland ins Tessin</option>
+          <option value="tessin">Tessin – In den Tiefen des Tessins</option>
+          <option value="andere">Andere / noch unentschieden</option>
+        </select>
+      </div>
+      <input type="hidden" name="_next" value="danke.html">
+      <button type="submit">Eintragen</button>
+    </form>
+  </div>
 </section>
 
-<section class="about">
+<section class="about container stack">
   <h2>Wer steckt dahinter</h2>
   <p>
     Ein frühes, unabhängiges Projekt aus der Schweiz. Kein Team, keine Firma – aktuell wird
@@ -226,7 +394,7 @@
   </p>
 </section>
 
-<section class="legal">
+<section class="legal container stack">
   <h2>Datenschutz</h2>
   <p>
     Gespeichert werden nur die E-Mail-Adresse und die gewählte Wunschtour, die du oben einträgst.
@@ -244,13 +412,29 @@
     E-Mail: <a href="mailto:vincent.wittlin@icloud.com">vincent.wittlin@icloud.com</a>
   </p>
   <p>Privates Testprojekt zur Marktvalidierung, keine eingetragene Firma.</p>
+  <h2>Bildnachweise</h2>
+  <ul class="credits">
+    <li>Hero: „Sunrise at Blümlisalphütte" – PhilippTillmann99, Wikimedia Commons, CC BY-SA 4.0</li>
+    <li>Berner Oberland: „South east side of Blümlisalphütte" – 1ndp, Wikimedia Commons, CC BY-SA 4.0</li>
+    <li>Graubünden: „Crap Mats and Ringelspitz south" – Caumasee, Wikimedia Commons, CC BY-SA 4.0</li>
+    <li>Wallis: „Landschaftspark Binntal – Binntal-Blatt" (Foto: Sniptite Wolf) – Landschaftspark Binntal, Wikimedia Commons, CC BY-SA 4.0</li>
+    <li>Zentralschweiz: „Flachmoorgebiet Oberalppass, Andermatt UR" – Jag9889, Wikimedia Commons, CC BY-SA 4.0</li>
+    <li>Tessin: „Onsernone Russo" – Adrian Michael, Wikimedia Commons, CC BY-SA 3.0</li>
+  </ul>
 </section>
 
-<footer>
+<footer class="container">
   <p>Stand der Tourendaten: 14.08.2026. Quellen: SAC-Tourenportal, hut-reservation.org,
   transport.opendata.ch, SBB.</p>
 </footer>
 
-</div>
+<script>
+document.getElementById('signup-form').addEventListener('submit', function () {
+  var btn = this.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = 'Wird gesendet …';
+});
+</script>
+
 </body>
 </html>

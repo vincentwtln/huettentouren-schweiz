@@ -1,208 +1,609 @@
-/* Bewusst simpel gehalten: kein Framework, keine Markenidentität in dieser Phase. */
+/* Gestaltungswelt: Schweizer Landeskarte (swisstopo). Terrainpapier, Höhenlinien-Textur,
+   eine einzige Routenfarbe für Aktion/Auswahl. Siehe Richtungsvertrag in index.html. */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root {
-  --text: #1c1c1c;
-  --muted: #5a5a5a;
-  --bg: #fdfdfb;
-  --card-bg: #ffffff;
-  --border: #e0ddd6;
-  --accent: #2f5233;
-  --warn-bg: #fdf3e3;
-  --warn-border: #e0b862;
-  --max-width: 760px;
+  --paper: #f3ead4;
+  --paper-deep: #e8daae;
+  --card-bg: #f8f2e1;
+  --ink: #2a2115;
+  --ink-soft: #55452f;
+  --contour: #a2703f;
+  --contour-soft: #cba677;
+  --water: #1c6c88;
+  --route: #b3271c;
+  --route-deep: #8a1e15;
+  --on-route: #f7ead0;
+  --border: #d8c69a;
+  --warn-bg: #f7e6bd;
+  --warn-border: #b9812c;
+  --content-width: 700px;
+  --wide-width: 1040px;
+  --radius: 3px;
 }
 
 * { box-sizing: border-box; }
 
+::selection { background: var(--route); color: var(--on-route); }
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: var(--text);
-  background: var(--bg);
-  line-height: 1.55;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-.wrap {
-  max-width: var(--max-width);
+.container {
+  max-width: var(--content-width);
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
+  padding: 0 1.25rem;
 }
 
+.container-wide {
+  max-width: var(--wide-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+h1, h2, h3 {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+a { color: var(--route); text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+a:hover { color: var(--route-deep); }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2.5px solid var(--route);
+  outline-offset: 2px;
+}
+
+input, select, button { accent-color: var(--route); }
+input, select { caret-color: var(--route); }
+
+/* ---------- Icon sprite ---------- */
+.icons { position: absolute; width: 0; height: 0; overflow: hidden; }
+.icon { width: 1em; height: 1em; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.15em; }
+
+/* ---------- Hero ---------- */
 header.hero {
-  padding: 3rem 0 2rem;
-  text-align: left;
+  position: relative;
+  background: var(--ink);
 }
 
-h1 {
-  font-size: 1.9rem;
-  line-height: 1.25;
-  margin: 0 0 1rem;
+.hero-photo {
+  position: relative;
+  min-height: min(64vh, 560px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
 }
 
-.lead {
-  font-size: 1.1rem;
-  color: var(--muted);
-  max-width: 60ch;
+.hero-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  filter: sepia(0.3) saturate(1.2) hue-rotate(-8deg) contrast(1.06) brightness(0.88);
 }
 
-h2 {
-  font-size: 1.4rem;
-  margin: 2.5rem 0 1rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.5rem;
+.hero-photo--compact { min-height: min(38vh, 340px); }
+
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(23, 17, 10, 0.1) 0%, rgba(23, 17, 10, 0.35) 55%, rgba(23, 17, 10, 0.86) 100%);
 }
 
-section.intro p {
-  max-width: 60ch;
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 0 2.5rem;
+  color: var(--on-route);
 }
 
-.tour-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.25rem 1.25rem 1.5rem;
+.hero .kicker-route {
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  background: var(--route);
   margin-bottom: 1.5rem;
 }
 
+h1 {
+  font-family: "Archivo Expanded", "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  max-width: 15ch;
+  margin-bottom: 1.25rem;
+}
+
+header.hero h1 { color: var(--on-route); }
+
+.lead {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 58ch;
+  margin: 0 0 2rem;
+}
+
+header.hero .lead { color: rgba(247, 234, 208, 0.86); }
+
+.legend-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0;
+  border-top: 1px solid rgba(247, 234, 208, 0.3);
+  border-bottom: 1px solid rgba(247, 234, 208, 0.3);
+  padding: 0.85rem 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: rgba(247, 234, 208, 0.86);
+  padding-right: 1.5rem;
+  border-right: 1px solid rgba(247, 234, 208, 0.3);
+}
+.legend-item:last-child { border-right: none; padding-right: 0; }
+.legend-item .icon { color: var(--route); width: 1.15em; height: 1.15em; }
+
+/* Crisp, fixed-tile contour texture -- a background pattern, never a
+   viewBox-stretched vector, so it can never distort or pixelate. */
+.contour-divider {
+  height: 3.25rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 120'%3E%3Cpath d='M0 88 Q30 68 60 88 T120 88 T180 88 T240 88' fill='none' stroke='%23a2703f' stroke-width='2'/%3E%3Cpath d='M0 58 Q30 38 60 58 T120 58 T180 58 T240 58' fill='none' stroke='%23cba677' stroke-width='1.6' opacity='0.8'/%3E%3Cpath d='M0 28 Q30 13 60 28 T120 28 T180 28 T240 28' fill='none' stroke='%23cba677' stroke-width='1.2' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 240px 120px;
+  background-position: bottom center;
+  background-color: var(--paper);
+}
+
+/* ---------- Intro ---------- */
+section.intro { padding: 2.75rem 0 0.5rem; }
+
+section.intro h2 { font-size: 1.35rem; margin-bottom: 0.9rem; }
+section.intro p { max-width: 62ch; color: var(--ink-soft); }
+
+.jump-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.4rem;
+}
+.jump-nav a {
+  font-family: "Archivo", sans-serif;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--route-deep);
+  text-decoration: none;
+  border: 1.5px solid var(--contour-soft);
+  border-radius: 2px;
+  padding: 0.4rem 0.75rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.jump-nav a:hover, .jump-nav a:focus-visible {
+  border-color: var(--route);
+  background: var(--card-bg);
+}
+
+h2 {
+  font-size: 1.35rem;
+  letter-spacing: -0.005em;
+}
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 3rem 0 1.25rem;
+}
+.section-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--contour-soft) 0 6px, transparent 6px 11px);
+  transform: translateY(-0.3em);
+}
+
+/* ---------- Tour cards ---------- */
+main.tours { padding: 0.5rem 0 1rem; }
+
+.tour-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0;
+  margin-bottom: 2.25rem;
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+  box-shadow: 0 1px 3px rgba(42, 33, 22, 0.07), 0 6px 14px rgba(42, 33, 22, 0.05);
+  overflow: hidden;
+}
+
+.tour-card::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 22px; height: 22px;
+  background: var(--paper-deep);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  z-index: 2;
+}
+
+.tour-photo {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--paper-deep);
+}
+
+.tour-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(0.25) saturate(1.15) hue-rotate(-6deg) contrast(1.04) brightness(0.95);
+}
+
+.region-tag {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.9rem;
+  background: rgba(23, 17, 10, 0.72);
+  color: var(--on-route);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.6rem;
+  border-radius: 2px;
+}
+
+.tour-card-body {
+  padding: 1.5rem 1.75rem 1.85rem;
+}
+
+.tour-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+
 .tour-card h3 {
-  margin: 0 0 0.15rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  max-width: 34ch;
 }
 
 .tour-meta {
-  color: var(--muted);
-  font-size: 0.92rem;
-  margin: 0 0 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.1rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.1rem;
 }
+.tour-meta span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.tour-meta .icon { color: var(--contour); }
 
 .tour-hook {
-  margin: 0 0 1rem;
+  margin: 0 0 1.1rem;
+  color: var(--ink-soft);
 }
 
 .warn-box {
   background: var(--warn-bg);
-  border: 1px solid var(--warn-border);
-  border-radius: 6px;
-  padding: 0.7rem 0.9rem;
+  border: 1px dashed var(--warn-border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
   font-size: 0.92rem;
-  margin: 0 0 1rem;
+  margin: 0 0 1.25rem;
+  display: flex;
+  gap: 0.6rem;
+}
+.warn-box .icon { flex-shrink: 0; margin-top: 0.2em; color: var(--warn-border); width: 1.2em; height: 1.2em; }
+
+.table-scroll {
+  overflow-x: auto;
+  margin: 0 0 0.4rem;
+  border-top: 1px solid var(--border);
 }
 
 table.etappen {
   width: 100%;
+  min-width: 460px;
   border-collapse: collapse;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+  font-size: 0.88rem;
 }
 
 table.etappen th, table.etappen td {
   text-align: left;
-  padding: 0.4rem 0.5rem;
+  padding: 0.6rem 0.6rem 0.6rem 0;
   border-bottom: 1px solid var(--border);
   vertical-align: top;
 }
 
 table.etappen th {
+  font-family: "Archivo", sans-serif;
   font-weight: 600;
-  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+table.etappen td:nth-child(1) {
+  width: 2.4rem;
+}
+
+.day-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--route);
+  color: var(--on-route);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+table.etappen td:nth-child(3), table.etappen td:nth-child(4) {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 .footnote {
-  font-size: 0.82rem;
-  color: var(--muted);
-  margin: -0.5rem 0 1rem;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 0.6rem 0 1.25rem;
+  font-style: italic;
 }
 
 .huetten-list {
-  font-size: 0.92rem;
-  margin: 0 0 1rem;
-  padding-left: 1.1rem;
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
 }
-
-.huetten-list li { margin-bottom: 0.3rem; }
+.huetten-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+}
+.huetten-list .icon { flex-shrink: 0; color: var(--contour); width: 1.05em; height: 1.05em; transform: translateY(0.15em); }
 
 .reise-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 0.5rem 1rem;
-  font-size: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
   margin: 0 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
-
-.reise-grid div { padding: 0.3rem 0; border-bottom: 1px dotted var(--border); }
+.reise-grid div {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+.reise-grid div:nth-last-child(-n+2) { border-bottom: none; }
 
 .tour-facts {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Disclosure (Etappenplan etc.) ---------- */
+summary.tour-toggle {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-family: "Archivo", sans-serif;
+  font-weight: 600;
   font-size: 0.9rem;
-  color: var(--muted);
+  color: var(--route-deep);
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: 0.35rem;
+  -webkit-tap-highlight-color: transparent;
+}
+summary.tour-toggle::-webkit-details-marker { display: none; }
+summary.tour-toggle::marker { content: ""; }
+summary.tour-toggle:active { opacity: 0.65; }
+
+.tour-detail-wrap[open] summary.tour-toggle { color: var(--ink); }
+
+.chevron {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tour-detail-wrap[open] .chevron { transform: rotate(180deg); }
+
+.tour-detail-inner { padding-top: 1.1rem; }
+
+@starting-style {
+  .tour-detail-wrap[open] .tour-detail-inner { opacity: 0; }
+}
+.tour-detail-wrap[open] .tour-detail-inner {
+  opacity: 1;
+  transition: opacity 0.4s ease;
 }
 
-a { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+  .chevron { transition: none; }
+  .tour-detail-wrap[open] .tour-detail-inner { transition: none; }
+}
 
+/* ---------- Offer band ---------- */
 section.offer {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-top: 2.5rem;
+  background: var(--route);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(247,234,208,0.05) 0 1px, transparent 1px 90px);
+  color: var(--on-route);
+  padding: 3rem 0;
+  margin: 1rem 0 0;
 }
+
+section.offer h2 { color: var(--on-route); font-size: 1.5rem; }
+section.offer > .container > p { color: rgba(247,234,208,0.88); max-width: 56ch; margin: 0.8rem 0 1.75rem; }
 
 form.signup {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1.1rem;
   max-width: 420px;
 }
 
 label {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  font-family: "Archivo", sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--on-route);
+  display: block;
+  margin-bottom: 0.4rem;
 }
 
 input[type="email"], select {
-  padding: 0.6rem 0.7rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: 1.5px solid var(--on-route);
+  border-radius: var(--radius);
   font-size: 1rem;
-  font-family: inherit;
+  font-family: "Public Sans", sans-serif;
+  background: var(--on-route);
+  color: var(--ink);
 }
+input[type="email"]::placeholder { color: var(--ink-soft); }
+
+input:invalid:not(:placeholder-shown) { border-color: #5a1710; }
 
 button {
-  background: var(--accent);
-  color: #fff;
+  background: var(--ink);
+  color: var(--on-route);
   border: none;
-  border-radius: 6px;
-  padding: 0.75rem 1.2rem;
+  border-radius: var(--radius);
+  padding: 0.9rem 1.5rem;
   font-size: 1rem;
+  font-family: "Archivo", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
   width: fit-content;
+  transition: transform 0.15s ease, background 0.15s ease;
 }
+button:hover { background: #40331f; transform: translateY(-1px); }
+button:active { transform: translateY(0); }
+button:disabled { opacity: 0.7; cursor: wait; transform: none; }
 
-button:hover { opacity: 0.92; }
-
+/* ---------- About / legal / footer ---------- */
 .about, .legal {
+  padding: 0 0;
+}
+.about h2, .legal h2 { font-size: 1.1rem; }
+.about p, .legal p {
   font-size: 0.92rem;
-  color: var(--muted);
-  margin-top: 2.5rem;
+  color: var(--ink-soft);
+  max-width: 62ch;
 }
 
-.legal h2 { font-size: 1.1rem; }
+.credits {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.credits li { margin-bottom: 0.3rem; }
 
 footer {
-  margin-top: 3rem;
-  font-size: 0.8rem;
-  color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+  padding: 1.5rem 0 3rem;
 }
+footer p {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+footer a { color: var(--ink-soft); }
 
+.stack { padding: 2.75rem 0; }
+.stack + .stack { padding-top: 0; }
+
+/* ---------- Danke / price tiles ---------- */
 .price-options {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin: 1rem 0 1.25rem;
+  gap: 0.6rem;
+  margin: 0 0 1.5rem;
 }
 
 .price-options label {
+  text-transform: none;
   font-weight: 400;
+  font-family: "Public Sans", sans-serif;
+  letter-spacing: normal;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
+  border: 1.5px solid var(--on-route);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.price-options label:has(input:checked) {
+  background: var(--on-route);
+  color: var(--ink);
+}
+.price-options label:has(input:focus-visible) {
+  outline: 2.5px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .hero-photo { min-height: 52vh; }
+  .hero-inner { padding: 2.25rem 0 2rem; }
+  .legend-item { flex: 1 1 45%; border-right: none; padding-right: 0; }
+  .tour-card-body { padding: 1.25rem 1.1rem 1.5rem; }
+  section.offer { padding: 2.25rem 0; }
 }

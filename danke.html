@@ -4,39 +4,51 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Danke – Hüttentouren Schweiz</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%23f3ead4'/%3E%3Cpath d='M2 18 L9 7 L13 13 L16 9 L22 18 Z' fill='none' stroke='%23b3271c' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="wrap">
 
 <header class="hero">
-  <h1>Danke, du bist eingetragen.</h1>
-  <p class="lead">
-    Wir melden uns per E-Mail, sobald deine Wunschtour an einem passenden Datum verfügbar ist.
-  </p>
+  <div class="hero-photo hero-photo--compact">
+    <img src="images/hero-bluemlisalp.jpg" alt="Blüemlisalphütte SAC bei Sonnenaufgang" loading="eager">
+  </div>
+  <div class="hero-inner">
+    <div class="container">
+      <span class="kicker-route" aria-hidden="true"></span>
+      <h1>Danke, du bist eingetragen.</h1>
+      <p class="lead">
+        Wir melden uns per E-Mail, sobald deine Wunschtour an einem passenden Datum verfügbar ist.
+      </p>
+    </div>
+  </div>
+  <div class="contour-divider" aria-hidden="true"></div>
 </header>
 
 <section class="offer">
-  <h2>Eine ehrliche Frage</h2>
-  <p>
-    Was wäre dir eine solche Benachrichtigung wert? Es gibt keine richtige Antwort – uns hilft
-    einfach die ehrliche Einschätzung.
-  </p>
-  <form class="signup" action="https://formspree.io/f/xppalkog" method="POST">
-    <div class="price-options">
-      <label><input type="radio" name="preis" value="nichts" required> Nichts, nur wenn kostenlos</label>
-      <label><input type="radio" name="preis" value="bis15"> bis CHF 15/Jahr</label>
-      <label><input type="radio" name="preis" value="bis30"> bis CHF 30/Jahr</label>
-      <label><input type="radio" name="preis" value="mehr"> mehr</label>
-    </div>
-    <button type="submit">Absenden</button>
-  </form>
+  <div class="container">
+    <h2>Eine ehrliche Frage</h2>
+    <p>
+      Was wäre dir eine solche Benachrichtigung wert? Es gibt keine richtige Antwort – uns hilft
+      einfach die ehrliche Einschätzung.
+    </p>
+    <form class="signup" action="https://formspree.io/f/xppalkog" method="POST">
+      <div class="price-options">
+        <label><input type="radio" name="preis" value="nichts" required> Nichts, nur wenn kostenlos</label>
+        <label><input type="radio" name="preis" value="bis15"> bis CHF 15/Jahr</label>
+        <label><input type="radio" name="preis" value="bis30"> bis CHF 30/Jahr</label>
+        <label><input type="radio" name="preis" value="mehr"> mehr</label>
+      </div>
+      <button type="submit">Absenden</button>
+    </form>
+  </div>
 </section>
 
-<footer>
+<footer class="container">
   <p><a href="index.html">Zurück zur Übersicht</a></p>
 </footer>
 
-</div>
 </body>
 </html>
