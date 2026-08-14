@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danke – Hüttentouren Schweiz</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Danke, du bist eingetragen.</h1>
+  <p class="lead">
+    Wir melden uns per E-Mail, sobald deine Wunschtour an einem passenden Datum verfügbar ist.
+  </p>
+</header>
+
+<section class="offer">
+  <h2>Eine ehrliche Frage</h2>
+  <p>
+    Was wäre dir eine solche Benachrichtigung wert? Es gibt keine richtige Antwort – uns hilft
+    einfach die ehrliche Einschätzung.
+  </p>
+  <!--
+    TODO (Vince, vor Go-Live): eigener, zweiter Formspree/Tally-Endpoint für den Preistest.
+    Bewusst als separates, anonymes Formular gehalten statt an die E-Mail-Eintragung gekoppelt –
+    einfacher umzusetzen und für die Auswertung (Verteilung der Antworten) ausreichend.
+  -->
+  <form class="signup" action="https://formspree.io/f/DEIN_PREISTEST_FORMULAR_ID" method="POST">
+    <div class="price-options">
+      <label><input type="radio" name="preis" value="nichts" required> Nichts, nur wenn kostenlos</label>
+      <label><input type="radio" name="preis" value="bis15"> bis CHF 15/Jahr</label>
+      <label><input type="radio" name="preis" value="bis30"> bis CHF 30/Jahr</label>
+      <label><input type="radio" name="preis" value="mehr"> mehr</label>
+    </div>
+    <button type="submit">Absenden</button>
+  </form>
+</section>
+
+<footer>
+  <p><a href="index.html">Zurück zur Übersicht</a></p>
+</footer>
+
+</div>
+</body>
+</html>
